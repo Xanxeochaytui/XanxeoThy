@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopee Affiliate Converter</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:system-ui;background:linear-gradient(135deg,#ff6b6b,#4ecdc4);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+        .container{background:white;padding:40px;border-radius:25px;box-shadow:0 25px 50px rgba(0,0,0,.15);max-width:500px;width:100%;text-align:center}
+        .logo{font-size:3em;margin-bottom:15px}
+        h1{color:#333;margin-bottom:10px;font-size:1.8em}
+        .subtitle{color:#666;margin-bottom:30px}
+        input{width:100%;padding:18px;border:2px solid #e1e5e9;border-radius:15px;font-size:16px;margin-bottom:20px;transition:all .3s;background:#f8f9fa}
+        input:focus{outline:none;border-color:#ff6b6b;box-shadow:0 0 0 4px rgba(255,107,107,.1)}
+        .convert-btn{background:linear-gradient(45deg,#ff6b6b,#ff8e8e);color:white;border:none;padding:18px;border-radius:15px;font-size:18px;font-weight:600;cursor:pointer;width:100%;transition:all .3s}
+        .convert-btn:hover{transform:translateY(-3px);box-shadow:0 15px 30px rgba(255,107,107,.4)}
+        .result{margin-top:30px;padding:25px;background:linear-gradient(135deg,#f093fb,#f5576c);border-radius:15px;color:white;display:none}
+        .aff-link{background:rgba(255,255,255,.2);padding:15px;border-radius:10px;margin:15px 0;word-break:break-all;font-family:monospace;font-size:14px;font-weight:bold}
+        .copy-btn{background:#28a745;padding:12px 25px;margin-top:10px;border:none;border-radius:10px;color:white;cursor:pointer;font-weight:600;width:100%;margin-bottom:10px}
+        .id-box{background:#ffeaa7;padding:15px;border-radius:10px;margin:20px 0;font-weight:bold;color:#2d3436}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🛒</div>
+        <h1>Dán Link Shopee → Kiếm Tiền</h1>
+        <p class="subtitle">ID: <strong>17314740041</strong> (Tự động chuyển đổi)</p>
+        
+        <div class="id-box">✅ Affiliate ID đã kích hoạt</div>
+        
+        <input type="text" id="inputLink" placeholder="https://shopee.vn/sản-phẩm...">
+        <button class="convert-btn" onclick="convert()">🚀 CHUYỂN ĐỔI</button>
+        
+        <div id="result" class="result">
+            <h3>✅ Link affiliate của bạn:</h3>
+            <div class="aff-link" id="outputLink"></div>
+            <button class="copy-btn" onclick="copyLink()">📋 COPY LINK</button>
+            <p style="font-size:14px">Share Zalo → Khách mua → Nhận 10-20% hoa hồng</p>
+        </div>
+    </div>
+
+    <script>
+        const AFF_ID = "17314740041";
+        function convert(){
+            const input = document.getElementById('inputLink').value.trim();
+            const result = document.getElementById('result');const output = document.getElementById('outputLink');
+            
+            if (!input.includes('shopee.vn')) {
+                alert('❌ Dán link Shopee hợp lệ!');
+                return;
+            }
+            
+            let url = new URL(input);
+            url.searchParams.set('affiliate_id', AFF_ID);
+            url.searchParams.set('sub_id', 'web-tool');
+            url.searchParams.set('utm_source', 'zalo');
+            
+            const finalLink = url.toString();
+            output.textContent = finalLink;
+            result.style.display = 'block';
+            result.scrollIntoView({behavior: 'smooth'});
+            document.getElementById('inputLink').value = '';
+        }
+        
+        function copyLink() {
+            const link = document.getElementById('outputLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                event.target.textContent = '✅ ĐÃ COPY!';
+                setTimeout(() => event.target.textContent = '📋 COPY LINK', 1500);
+            });
+        }
+        
+        document.getElementById('inputLink').addEventListener('keypress', e => {
+            if (e.key === 'Enter') convert();
+        });
+        document.getElementById('inputLink').focus();
+    </script>
+</body>
+</html>
